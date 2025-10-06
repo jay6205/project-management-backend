@@ -1,0 +1,7 @@
+node_modules
+<<<<<<< HEAD
+.env
+PRD
+=======
+.env
+>>>>>>> 38bfa50 (Fix Rookie Mistake)
