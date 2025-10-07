@@ -81,7 +81,7 @@ const login = asyncHandler(async (req, res) => {
         throw new ApiError(400, "User does not exist")
     }
 
-    const isPasswordValid = user.isPasswordCorrect(password)
+    const isPasswordValid = await user.isPasswordCorrect(password)
     if (!isPasswordValid) {
         throw new ApiError(400, "Incorrect Password")
     }
@@ -284,7 +284,7 @@ const forgotPasswordRequest = asyncHandler(async (req, res) => {
     user.forgotPasswordToken = hashedToken
     user.forgotPasswordExpiry = tokenExpiry
     await user.save({ validateBeforeSave: false })
-    await user.sendEmail({
+    await sendEmail({
         email: user?.email,
         subject: "Password Reset Request",
         mailgenContent: forgotPasswordMailgenContent(user.username, `${process.env.FORGOT_PASSWORD_REDIRECT_URL}/${unHashedToken}`),
