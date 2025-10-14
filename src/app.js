@@ -1,3 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config({path:".env"});
+
+import passport from "./utils/passport-config.js";  
+
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -23,6 +28,10 @@ import healthCheckRouter from "./routes/healthcheck.routes.js";
 import authRouter from "./routes/auth.routes.js"
 app.use("/api/v1/healthcheck", healthCheckRouter)
 app.use("/api/v1/auth", authRouter)
+
+// Google Login routes
+
+app.use(passport.initialize())
 
 app.get("/", (req, res) => {
     res.send("home")
